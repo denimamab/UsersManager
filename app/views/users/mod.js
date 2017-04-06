@@ -17,6 +17,10 @@ angular.module('app.databind', [
             $scope.userForm.errors = {};
             $scope.userForm.inputs={};
 
+            $('#FormModal').on('hide.bs.modal', function(){
+                $scope.userForm.data = usersService.initUser();
+            })
+
             //Default ageOperator
             $scope.ageOperator = 'lte';
 
