@@ -1,0 +1,34 @@
+
+
+<div class="container">
+    <h1>{{welcomeMessage}}</h1>
+    <h2>Profile informations</h2>
+    <div class="col-sm-12">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <b><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Name :</b> {{user.name}}
+            </li>
+            <li class="list-group-item">
+                <b><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Email :</b> {{user.email}}
+            </li>
+            <li class="list-group-item">
+                <b><span class="glyphicon glyphicon glyphicon-asterisk" aria-hidden="true"></span> Age :</b> {{user.age | usersAgeDecorator }}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Users Manager</h1>
+        <p>In this example, we will use :</p>
+        <ul class="list-group">
+            <li class="list-group-item"><b>Custom and default Filters: </b>Filter data, and decorate</li>
+            <li class="list-group-item"><b>Services: </b>Get the Common Message and static list of users</li>
+            <li class="list-group-item"><b>Factories:</b> manage CRUD actions</li>
+            <li class="list-group-item"><b>Form validation:</b> Validate edition and creation forms</li>
+            <li class="list-group-item"><b>Data Binding:</b> bind data in list of users</li>
+        </ul>
+    </div>
+</div>

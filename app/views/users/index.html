@@ -1,0 +1,134 @@
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Users Manager</h1>
+        <p>In this example, we will use :</p>
+        <ul class="list-group">
+            <li class="list-group-item"><b>Custom and default Filters: </b>Filter data</li>
+            <li class="list-group-item"><b>Services: </b>Get the Common Message</li>
+            <li class="list-group-item"><b>Factories:</b> manage CRUD actions</li>
+            <li class="list-group-item"><b>Form validation:</b> Validate edition and creation forms</li>
+            <li class="list-group-item"><b>Data Binding:</b> bind data in list of users</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <h1>List of users <button class="btn btn-primary" data-toggle="modal" data-target="#FormModal" ng-click="create()"><span data-toggle="tooltip" title="Add new user" class="glyphicon glyphicon-plus"></span> New</button></h1>
+    <div class="col-sm-6" style="padding:0">
+        <input type="text" class="form-control" ng-model="defaultQuery" placeholder="Search a user">
+    </div>
+    <div class="col-sm-6" style="padding:0;" >
+        <div class="col-sm-4" >
+            <select name="operation" id="operation" class="form-control"
+                    ng-model="ageOperator"
+            >
+                <option value="e">=</option>
+                <option value="lte">&lt;=</option>
+                <option value="gte">&gt;=</option>
+                <option value="lt">&lt;</option>
+                <option value="gt">&gt;</option>
+            </select>
+        </div>
+        <div class="col-sm-8" style="padding:0">
+            <input type="text" ng-model="ageQuery" class="form-control" placeholder="Filter by age">
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in users | filter: defaultQuery | usersAgeFilter: ageQuery:ageOperator">
+            <td>{{user.username}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>
+                <a ng-href="#/user/{{user.username}}" class="btn btn-info" > <span data-toggle="tooltip" title="Show profile" class="glyphicon glyphicon-eye-open"></span></a>
+                <button class="btn btn-default" data-toggle="modal" data-target="#FormModal" ng-click="edit(user)"><span data-toggle="tooltip" title="Edit profile informations" class="glyphicon glyphicon-pencil"></span></button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete" data-toggle="tooltip" title="Delete user" ng-click="delete(user)"><span data-toggle="tooltip" title="Delete user" class="glyphicon glyphicon-trash"></span></button>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </tfoot>
+    </table>
+
+</div>
+
+
+<!-- Modal -->
+<div id="FormModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit user</h4>
+            </div>
+            <div class="modal-body">
+                <form name="userForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" ng-model="userForm.data.username" ng-required="userForm.inputs.username.required" ng-disabled="userForm.inputs.username.disabled" >
+                        <span ng-show="userForm.$error.username || !userForm.username.$valid" class="text-danger">This username is empty or already exists.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" ng-model="userForm.data.name">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" ng-model="userForm.data.age">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="email" name="email" ng-model="userForm.data.email">
+                        <span ng-show="userForm.$error.email" class="text-danger">Please enter a valid email.</span>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Delete confirmation</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok" ng-click="confirmDelete()">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
